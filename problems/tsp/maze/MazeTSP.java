@@ -42,11 +42,7 @@ public class MazeTSP extends TSP implements ProblemVisualizable {
 		/**
 		 * COMPLETAR
 		 */
-		// Dada una secuencia de ciudades, devuelve la longitud del camino.
-		// distancia euclídea.
-		/**
-		 * COMPLETAR
-		 */
+		
 		int[] secuencia = configuration.getValues();
 		System.out.println("EMPEZAMOS");
 		for (int x = 0; x < secuencia.length; x++) {
