@@ -1,4 +1,4 @@
-package optimization.algorithms.genetic;
+package algorithms;
 
 public enum SelectionScheme {
 
