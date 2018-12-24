@@ -10,7 +10,6 @@ public class HillClimbing extends OptimizationAlgorithm {
 	protected double k;			// Increasing factor
 	
 	/* Carries out the search */
-	public static final int ITERATIONS_BEFORE_MAXIMA = 100;
 	@Override
 	public void search() {
 		

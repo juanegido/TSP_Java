@@ -101,4 +101,9 @@ public abstract class OptimizationAlgorithm {
 		}
 		return null;
 	}
+
+	public void showSearchStats() {
+		// TODO Auto-generated method stub
+		
+	}
 }
