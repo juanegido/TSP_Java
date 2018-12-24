@@ -108,59 +108,31 @@ public class TSP extends OptimizationProblem implements ProblemVisualizable {
 	/**
 	 * Calculates the score of a configuration as the sum of the path.
 	 */
+
 	@Override
+	
 	public double score(Configuration configuration) {
-		// Dada una secuencia de ciudades, devuelve la longitud del camino.
-		// distancia euclídea.
-		/**
-		 * COMPLETAR
-		 */
-		int[] secuencia = configuration.getValues();
-		System.out.println("EMPEZAMOS");
-		for (int x = 0; x < secuencia.length; x++) {
-
-			System.out.println("ciudad" + "[" + x + "]=" + secuencia[x]);
-
-		}
-
-		System.out.println(posCities);
-		double dist_eucli = 0d;
-		double dist_eucliHamster = 0d;
-		int pos_x = 0;
-		int pos_y = 0;
-		int pos_x2 = 0;
-		int pos_y2 = 0;
-		for (int i = 0; i < secuencia.length; i++) {
-			int se = secuencia[i];
-			if ((i + 1) < secuencia.length) {
-				int se2 = secuencia[i + 1];
-				pos_x = posCities.get(se).x;
-				pos_y = posCities.get(se).y;
-				pos_x2 = posCities.get(se2).x;
-				pos_y2 = posCities.get(se2).y;
-			} else {
-				pos_x = pos_x2;
-				pos_y = pos_y2;
-				pos_x2 = this.posAgent.x;
-				pos_y2 = this.posAgent.y;
-			}
-			dist_eucli = dist_eucli + Math.sqrt(Math.pow((pos_x - pos_x2), 2) + Math.pow((pos_y - pos_y2), 2));
-
-		}
-
-		// ditancia de pos hamster al primer queso + todas las calculadas antes.
-		pos_x2 = posCities.get(secuencia[0]).x;
-		pos_y2 = posCities.get(secuencia[0]).y;
-		dist_eucli = dist_eucli
-				+ Math.sqrt(Math.pow((this.posAgent.x - pos_x2), 2) + Math.pow((this.posAgent.y - pos_y2), 2));
-		System.out.println("------------------->" + dist_eucli);
-		return dist_eucli;
+		int[] solution = configuration.getValues();
+	    int distance = 0;
+	    for (int index = 0; index < solution.length; index++) {
+	        int starting = solution[index];
+	        int destination = 0;
+			int pos_x = posCities.get(starting).x;
+			int pos_y = posCities.get(starting).y;
+			int pos_x2 = posCities.get(destination).x;
+			int pos_y2 = posCities.get(destination).y;
+	        if (index + 1 < solution.length) {
+	            destination = solution[index + 1];
+	        } else {
+	            destination = solution[0];
+	            distance += + Math.sqrt(Math.pow((this.posAgent.x - pos_x2), 2) + Math.pow((this.posAgent.y - pos_y2), 2));
+	        }
+	            distance += Math.sqrt(Math.pow((pos_x - pos_x2), 2) + Math.pow((pos_y - pos_y2), 2));
+	    }
+	    return distance;
 	}
+	
 
-	/**
-	 * Generates a random configuration. In this case, a permutation.
-	 */
-	@Override
 	public Configuration genRandomConfiguration() {
 		// Creates the values (ordered)
 		int[] values = new int[size];
