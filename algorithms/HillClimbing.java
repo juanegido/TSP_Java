@@ -18,7 +18,7 @@ public class HillClimbing extends OptimizationAlgorithm {
 		initSearch();
 		
 		// We apply hill climbing generating one random configuration
-		applyHillClimbling(genRandomConfiguration());
+		applyHillClimbling(problem.genRandomConfiguration());
 	
 		// Stop the search
 		stopSearch();
@@ -58,30 +58,46 @@ public class HillClimbing extends OptimizationAlgorithm {
 	
 	/* Generates the neighborhood of the configuration given by parameter
 	 * Generates a neighbor per each parameter decreasing and increasing */
-	public Configuration generateNeighborhood(Configuration configuration) {
+	public ArrayList<Configuration> generateNeighborhood(Configuration configuration) {
+		
+		ArrayList<Configuration> neighbors;
 		
 		int x1 = 0; int x2= 0;
-		int[] solution = configuration.getValues();
-		while (x1 == x2) {
+		double min = 0;
+		double max = problem.size();
+		double step;
+		int[] params;
+		
+		neighbors = new ArrayList<Configuration>(); 
+		
+		for (int i = 0; i < problem.size(); i++) {
+			
+			
+			// We define the step
+			step = k * (max - min);
+			
+			// Copy of the original configuration values
+			params = Arrays.copyOf(configuration.getValues(), problem.size());
+			
 			x1 = (int) ((int) (configuration.getValues().length) * Math.random());
 			x2 = (int) ((int) (configuration.getValues().length) * Math.random());
+			
+			// We establish the neighbors values
+			params[i] = (int) Math.min(configuration.getValues()[i] + x1 * step, max);
+			neighbors.add(new Configuration(params));
+			params[i] = (int) Math.max(configuration.getValues()[i] - x2 * step, min);
+			neighbors.add(new Configuration(params));
+			
 		}
-		int City1 = solution[x1];
-		int City2 = solution[x2];
 		
-		solution[x2] = solution[City1];
-		solution[x1] = solution[City2];
-		
-		
-		
-		
-		
-		
-		return new Configuration(solution);
-		
-	
+		return neighbors;
 
 	}
+	
+	
+	
+	
+	
 
 	@Override
 	public void showSearchStats() {
